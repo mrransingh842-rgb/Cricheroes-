@@ -1,52 +1,68 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-  <meta charset="UTF-8" />
-  <title>लाइव क्रिकेट स्कोर ओवरले</title>
+  <meta charset="UTF-8">
+  <title>स्कोरकार्ड ओवरले</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #111;
-      color: #fff;
-      text-align: center;
-      padding: 20px;
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background: transparent; /* पूरी वेबसाइट ट्रांसपेरेंट */
+      overflow: hidden;
     }
-    #score {
+    #scorecard {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 110px;
+      background: #243a54cc; /* हल्का ट्रांसपेरेंट ब्लू */
+      color: #fff;
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 60px;
+      border-radius: 30px 30px 0 0;
+      box-shadow: 0 -2px 12px #111a;
+      z-index: 10;
+    }
+    /* उदाहरण डेटा */
+    .team, .score, .batsmen, .bowler, .projected {
+      margin: 0 14px;
+      font-size: 1.2em;
+    }
+    .batsmen {
+      flex: 2;
+    }
+    .team {
+      font-weight: bold;
+      font-size: 1.7em;
+      letter-spacing: 2px;
+    }
+    .score {
       font-size: 2em;
-      margin-top: 30px;
-      background: #222;
-      padding: 20px;
-      border-radius: 10px;
-      display: inline-block;
-      min-width: 300px;
+      font-weight: bold;
+      margin-left: 20px;
+      margin-right: 20px;
     }
   </style>
 </head>
 <body>
-  <h1>लाइव क्रिकेट स्कोर</h1>
-  <div id="score">स्कोर लोड हो रहा है...</div>
-
-  <script>
-    async function showScore() {
-      try {
-        const response = await fetch('https://cricheroes.com/_next/data/YQzuzFaqYqApMokloGL7/index.json');
-        const data = await response.json();
-
-        // JSON डेटा में स्कोर कहाँ है, इसे API डेटा देखकर तय करें
-        // अभी नीचे एक डमी पाथ है, आपको इसे सही करने की आवश्यकता हो सकती है
-        let runs = data.pageProps?.matchDetails?.score?.runs || "डेटा नहीं मिला";
-        let wickets = data.pageProps?.matchDetails?.score?.wickets || "डेटा नहीं मिला";
-        let overs = data.pageProps?.matchDetails?.score?.overs || "डेटा नहीं मिला";
-
-        document.getElementById("score").textContent = `स्कोर: ${runs} / ${wickets} - ओवर: ${overs}`;
-      } catch (error) {
-        document.getElementById("score").textContent = "स्कोर लोड करने में समस्या आई";
-        console.error("Error fetching score:", error);
-      }
-    }
-
-    showScore();
-    setInterval(showScore, 10000); // हर 10 सेकंड में अपडेट करें
-  </script>
+  <div id="scorecard">
+    <div class="batsmen">
+      <span>🟡 Sakur Khan*  6(6)</span> &nbsp;
+      <span>Vikram Siyani  1(3)</span>
+    </div>
+    <div class="team">SS</div>
+    <div class="score">8-0<br><span style="font-size:0.8em">1.3 (8)</span></div>
+    <div class="bowler">
+      <span style="font-weight:bold;">Majid</span> <span>0-1 (0.3)</span>
+    </div>
+    <div class="projected">
+      <span>PROJECTED SCORE: <b>43</b></span>
+    </div>
+  </div>
 </body>
 </html>
